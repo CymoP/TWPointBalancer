@@ -31,6 +31,7 @@ public class PointTableBuilder {
     }
 
     private static void addHeadquartersPoints() {
+        pointTableMap.put("Headquarters", 0, 0);
         pointTableMap.put("Headquarters", 1, 10);
         pointTableMap.put("Headquarters", 2, 12);
         pointTableMap.put("Headquarters", 3, 14);
@@ -64,6 +65,7 @@ public class PointTableBuilder {
     }
 
     private static void addBarracksPoints() {
+        pointTableMap.put("Barracks", 0, 0);
         pointTableMap.put("Barracks", 1, 16);
         pointTableMap.put("Barracks", 2, 19);
         pointTableMap.put("Barracks", 3, 23);
@@ -92,6 +94,7 @@ public class PointTableBuilder {
     }
 
     private static void addStablesPoints() {
+        pointTableMap.put("Stables", 0, 0);
         pointTableMap.put("Stables", 1, 20);
         pointTableMap.put("Stables", 2, 24);
         pointTableMap.put("Stables", 3, 29);
@@ -115,6 +118,7 @@ public class PointTableBuilder {
     }
 
     private static void addWorkshopPoints() {
+        pointTableMap.put("Workshop", 0, 0);
         pointTableMap.put("Workshop", 1, 24);
         pointTableMap.put("Workshop", 2, 29);
         pointTableMap.put("Workshop", 3, 35);
@@ -133,10 +137,12 @@ public class PointTableBuilder {
     }
 
     private static void addAcademyPoints() {
+        pointTableMap.put("Academy", 0, 0);
         pointTableMap.put("Academy", 1, 512);
     }
 
     private static void addSmithyPoints() {
+        pointTableMap.put("Smithy", 0, 0);
         pointTableMap.put("Smithy", 1, 19);
         pointTableMap.put("Smithy", 2, 23);
         pointTableMap.put("Smithy", 3, 27);
@@ -160,10 +166,12 @@ public class PointTableBuilder {
     }
 
     private static void addStatuePoints() {
+        pointTableMap.put("Statue", 0, 0);
         pointTableMap.put("Statue", 1, 24);
     }
 
     private static void addMarketPoints() {
+        pointTableMap.put("Market", 0, 0);
         pointTableMap.put("Market", 1, 10);
         pointTableMap.put("Market", 2, 12);
         pointTableMap.put("Market", 3, 14);
@@ -192,6 +200,7 @@ public class PointTableBuilder {
     }
 
     private static void addTimberPoints() {
+        pointTableMap.put("Timber", 0, 0);
         pointTableMap.put("Timber", 1, 6);
         pointTableMap.put("Timber", 2, 7);
         pointTableMap.put("Timber", 3, 9);
@@ -225,6 +234,7 @@ public class PointTableBuilder {
     }
 
     private static void addClayPoints() {
+        pointTableMap.put("Clay", 0, 0);
         pointTableMap.put("Clay", 1, 6);
         pointTableMap.put("Clay", 2, 7);
         pointTableMap.put("Clay", 3, 9);
@@ -258,6 +268,7 @@ public class PointTableBuilder {
     }
 
     private static void addIronPoints() {
+        pointTableMap.put("Iron", 0, 0);
         pointTableMap.put("Iron", 1, 6);
         pointTableMap.put("Iron", 2, 7);
         pointTableMap.put("Iron", 3, 9);
@@ -291,6 +302,7 @@ public class PointTableBuilder {
     }
 
     private static void addFarmPoints() {
+        pointTableMap.put("Farm", 0, 0);
         pointTableMap.put("Farm", 1, 5);
         pointTableMap.put("Farm", 2, 6);
         pointTableMap.put("Farm", 3, 7);
@@ -324,6 +336,7 @@ public class PointTableBuilder {
     }
 
     private static void addWarehousePoints() {
+        pointTableMap.put("Warehouse", 0, 0);
         pointTableMap.put("Warehouse", 1, 6);
         pointTableMap.put("Warehouse", 2, 7);
         pointTableMap.put("Warehouse", 3, 9);
@@ -357,6 +370,7 @@ public class PointTableBuilder {
     }
 
     private static void addHidingPlacePoints() {
+        pointTableMap.put("Hiding Place", 0, 0);
         pointTableMap.put("Hiding Place", 1, 5);
         pointTableMap.put("Hiding Place", 2, 6);
         pointTableMap.put("Hiding Place", 3, 7);
@@ -370,6 +384,7 @@ public class PointTableBuilder {
     }
 
     private static void addWallPoints() {
+        pointTableMap.put("Wall", 0, 0);
         pointTableMap.put("Wall", 1, 8);
         pointTableMap.put("Wall", 2, 10);
         pointTableMap.put("Wall", 3, 12);

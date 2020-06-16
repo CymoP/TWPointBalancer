@@ -33,7 +33,7 @@ public class Balancer {
         int pointDifferenceChurchThree = targetPointTotal - staticPointTotalChurchThree;
 
         for (String building : flexibleBuildingsList) {
-            for (int i = 1; i <= pointTableMap.get(building).size(); i++) {
+            for (int i = 0; i <= pointTableMap.get(building).size() - 1; i++) {
                 Integer buildingPoints = pointTableMap.get(building, i);
                 permutationsMap.put(building + " Level = " + i, buildingPoints);
 
@@ -46,7 +46,6 @@ public class Balancer {
                         if (!entryKey.contains(building)) {
                             permutationsMapExtended.put(entryKey + " " + building + " Level = " + i, entryValue + buildingPoints);
                         }
-
                     }
                 }
             }
