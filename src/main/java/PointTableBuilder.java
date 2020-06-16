@@ -16,6 +16,7 @@ public class PointTableBuilder {
         addStablesPoints();
         addWorkshopPoints();
         addAcademyPoints();
+        addSmithyPoints();
         addStatuePoints();
         addMarketPoints();
         addTimberPoints();

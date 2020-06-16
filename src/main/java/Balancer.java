@@ -1,53 +1,64 @@
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Balancer {
     public static void main(String[] args) {
 
         BiHashMap<String, Integer, Integer> pointTableMap = PointTableBuilder.buildPointTableMap();
+        Map<String, Integer> permutationsMap = new LinkedHashMap<>();
+        Map<String, Integer> permutationsMapExtended = new LinkedHashMap<>();
+        int targetPointTotal = getTargetPoints();
+        Map<String, Integer> userInputMap = getUserBuildingInput(pointTableMap);
+        List<String> flexibleBuildingsList = new LinkedList<>();
 
-        int hq = 319;
-        int barracks = 1272;
-        int stables = 639;
-        int academy = 512;
-        int smithy = 607;
-        int statue = 24;
-        int market = 460;
-        int timber = 1187;
-        int clay = 1187;
-        int iron = 1187;
-        int farm = 989;
-        int warehouse = 1187;
-        int wall = 256;
-        int staticPointTotal = hq + barracks + stables + academy + smithy + statue + market + timber + clay + iron + farm + warehouse + wall;
+        boolean multipleBuildings = false;
+        int staticPointTotal = 0;
+
+        for (Map.Entry<String, Integer> entry : userInputMap.entrySet()) {
+            if (entry.getValue() == -1) {
+                flexibleBuildingsList.add(entry.getKey());
+            } else {
+                int buildingLevel = entry.getValue();
+                int buildingPoints = pointTableMap.get(entry.getKey(), buildingLevel);
+
+                staticPointTotal += buildingPoints;
+            }
+        }
+
         int staticPointTotalChurchOne = staticPointTotal + 10;
         int staticPointTotalChurchTwo = staticPointTotal + 12;
         int staticPointTotalChurchThree = staticPointTotal + 14;
-        int targetPointTotal = 9874;
         int pointDifferenceNoChurch = targetPointTotal - staticPointTotal;
         int pointDifferenceChurchOne = targetPointTotal - staticPointTotalChurchOne;
         int pointDifferenceChurchTwo = targetPointTotal - staticPointTotalChurchTwo;
         int pointDifferenceChurchThree = targetPointTotal - staticPointTotalChurchThree;
 
-        String inputWorkshop = "Workshop";
-        String inputHidingPlace = "Hiding Place";
-        boolean churchZeroBalanced = false;
-        boolean churchOneBalanced = false;
-        boolean churchTwoBalanced = false;
-        boolean churchThreeBalanced = false;
+        for (String building : flexibleBuildingsList) {
+            for (int i = 1; i <= pointTableMap.get(building).size(); i++) {
+                Integer buildingPoints = pointTableMap.get(building, i);
+                permutationsMap.put(building + " Level = " + i, buildingPoints);
 
-        Map<String, Integer> permutationsMap = new LinkedHashMap<>();
+                if (multipleBuildings) {
+                    for (Map.Entry<String, Integer> entry : permutationsMap.entrySet()) {
+                        String entryKey = entry.getKey();
+                        Integer entryValue = entry.getValue();
 
-        for (int i = 1; i <= pointTableMap.get(inputWorkshop).size(); i++) {
-            for (int j = 1; j <= pointTableMap.get(inputHidingPlace).size(); j++) {
-                Integer workshopPoints = pointTableMap.get(inputWorkshop, i);
-                Integer hidingPlacePoints = pointTableMap.get(inputHidingPlace, j);
 
-                permutationsMap.put("Workshop Level = " + i + " Hiding Place Level = " + j, workshopPoints + hidingPlacePoints);
+                        if (!entryKey.contains(building)) {
+                            permutationsMapExtended.put(entryKey + " " + building + " Level = " + i, entryValue + buildingPoints);
+                        }
+
+                    }
+                }
             }
+
+            multipleBuildings = true;
         }
 
+        iterateOverPermutations(permutationsMap, pointDifferenceNoChurch, pointDifferenceChurchOne, pointDifferenceChurchTwo, pointDifferenceChurchThree);
+        iterateOverPermutations(permutationsMapExtended, pointDifferenceNoChurch, pointDifferenceChurchOne, pointDifferenceChurchTwo, pointDifferenceChurchThree);
+    }
+
+    private static void iterateOverPermutations(Map<String, Integer> permutationsMap, int pointDifferenceNoChurch, int pointDifferenceChurchOne, int pointDifferenceChurchTwo, int pointDifferenceChurchThree) {
         for (Map.Entry<String, Integer> entry : permutationsMap.entrySet()) {
             if (entry.getValue() == pointDifferenceNoChurch) {
                 System.out.println("Church Zero = " + entry);
@@ -72,6 +83,7 @@ public class Balancer {
 
         for (String key : pointTableMap.getKeyList()) {
             Scanner scanner = new Scanner(System.in);
+
             System.out.println("Are " + key + " Levels Flexible? Y/N");
             String buildingFlex = scanner.nextLine();
 
@@ -80,12 +92,20 @@ public class Balancer {
                 int buildingLevel = scanner.nextInt();
                 System.out.println(key + " Level = " + buildingLevel);
                 inputBuildInfoMap.put(key, buildingLevel);
-            }
-            else {
+            } else {
                 inputBuildInfoMap.put(key, -1);
             }
         }
 
         return inputBuildInfoMap;
+    }
+
+    private static int getTargetPoints() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("What is the target point value for the village?");
+        int targetPointTotal = scanner.nextInt();
+
+        return targetPointTotal;
     }
 }
