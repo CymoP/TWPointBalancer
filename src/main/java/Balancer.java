@@ -1,17 +1,16 @@
 import java.util.*;
 
 public class Balancer {
+
+    private static Map<String, Integer> resultMap = new LinkedHashMap<>();
+
     public static void main(String[] args) {
 
         BiHashMap<String, Integer, Integer> pointTableMap = PointTableBuilder.buildPointTableMap();
-        Map<String, Integer> permutationsMap = new LinkedHashMap<>();
-        Map<String, Integer> permutationsMapExtended = new LinkedHashMap<>();
-        int targetPointTotal = getTargetPoints();
         Map<String, Integer> userInputMap = getUserBuildingInput(pointTableMap);
         List<String> flexibleBuildingsList = new LinkedList<>();
-
-        boolean multipleBuildings = false;
         int staticPointTotal = 0;
+        int targetPointTotal = getTargetPoints();
 
         for (Map.Entry<String, Integer> entry : userInputMap.entrySet()) {
             if (entry.getValue() == -1) {
@@ -32,29 +31,8 @@ public class Balancer {
         int pointDifferenceChurchTwo = targetPointTotal - staticPointTotalChurchTwo;
         int pointDifferenceChurchThree = targetPointTotal - staticPointTotalChurchThree;
 
-        for (String building : flexibleBuildingsList) {
-            for (int i = 0; i <= pointTableMap.get(building).size() - 1; i++) {
-                Integer buildingPoints = pointTableMap.get(building, i);
-                permutationsMap.put(building + " Level = " + i, buildingPoints);
-
-                if (multipleBuildings) {
-                    for (Map.Entry<String, Integer> entry : permutationsMap.entrySet()) {
-                        String entryKey = entry.getKey();
-                        Integer entryValue = entry.getValue();
-
-
-                        if (!entryKey.contains(building)) {
-                            permutationsMapExtended.put(entryKey + " " + building + " Level = " + i, entryValue + buildingPoints);
-                        }
-                    }
-                }
-            }
-
-            multipleBuildings = true;
-        }
-
-        iterateOverPermutations(permutationsMap, pointDifferenceNoChurch, pointDifferenceChurchOne, pointDifferenceChurchTwo, pointDifferenceChurchThree);
-        iterateOverPermutations(permutationsMapExtended, pointDifferenceNoChurch, pointDifferenceChurchOne, pointDifferenceChurchTwo, pointDifferenceChurchThree);
+        computeResult(new LinkedHashMap<>(), flexibleBuildingsList, 0);
+        iterateOverPermutations(resultMap, pointDifferenceNoChurch, pointDifferenceChurchOne, pointDifferenceChurchTwo, pointDifferenceChurchThree);
     }
 
     private static void iterateOverPermutations(Map<String, Integer> permutationsMap, int pointDifferenceNoChurch, int pointDifferenceChurchOne, int pointDifferenceChurchTwo, int pointDifferenceChurchThree) {
@@ -103,8 +81,36 @@ public class Balancer {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("What is the target point value for the village?");
-        int targetPointTotal = scanner.nextInt();
 
-        return targetPointTotal;
+        return scanner.nextInt();
+    }
+
+    private static void computeResult(Map<String, Integer> oldMap, List<String> flexibleBuildingsList, int flexibleBuildingListIndex) {
+        Map<String, Integer> newMap = new LinkedHashMap<>(oldMap);
+        BiHashMap<String, Integer, Integer> pointTableMap = PointTableBuilder.buildPointTableMap();
+
+        if (flexibleBuildingListIndex <= (flexibleBuildingsList.size() - 1)) {
+            String currentBuilding = flexibleBuildingsList.get(flexibleBuildingListIndex);
+
+            for (int i = 0; i <= pointTableMap.get(currentBuilding).size() - 1; i++) {
+                Integer buildingPoints = pointTableMap.get(currentBuilding, i);
+                newMap.put(currentBuilding + " Level = " + i, buildingPoints);
+
+                if (!oldMap.isEmpty()) {
+                    for (Map.Entry<String, Integer> entry : oldMap.entrySet()) {
+                        String entryKey = entry.getKey();
+                        Integer entryValue = entry.getValue();
+
+                        if (!entryKey.contains(currentBuilding)) {
+                            newMap.put(entryKey + " " + currentBuilding + " Level = " + i, entryValue + buildingPoints);
+                        }
+                    }
+                }
+            }
+            computeResult(newMap, flexibleBuildingsList, ++flexibleBuildingListIndex);
+        }
+        else if (flexibleBuildingListIndex == (flexibleBuildingsList.size())){
+            resultMap = newMap;
+        }
     }
 }
