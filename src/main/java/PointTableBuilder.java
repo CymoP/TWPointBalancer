@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class PointTableBuilder {
 
     private static BiHashMap<String, Integer, Integer> pointTableMap;
