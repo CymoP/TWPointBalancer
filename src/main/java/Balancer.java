@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Balancer {
 
-    private static BiHashMap<String, Integer, Integer> pointTableMap = PointTableBuilder.buildPointTableMap();
+    private static final BiHashMap<String, Integer, Integer> pointTableMap = PointTableBuilder.buildPointTableMap();
 
     public static void main(String[] args) {
         //Obtain User Input
@@ -21,8 +21,9 @@ public class Balancer {
         List<String> flexibleBuildingsList = InputReader.getFlexibleBuildingsList(userInputMap);
         Mode mode = InputReader.getMode();
 
-        //Compute permuations map
-        Map<String, Integer> resultMap = PermutationsMapComputator.computeResult(new LinkedHashMap<>(), flexibleBuildingsList, 0);
+        //Compute permutations map
+        PermutationsMapComputator.computeResult(new LinkedHashMap<>(), flexibleBuildingsList, 0);
+        Map<String, Integer> resultMap = PermutationsMapComputator.getPermutationsMap();
 
         //Generate output
         GenerateOutput.generateOutput(targetPointTotal, staticPointTotal, mode, resultMap);

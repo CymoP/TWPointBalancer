@@ -7,13 +7,20 @@ import java.util.Objects;
 
 public class GenerateOutput {
 
+    private GenerateOutput() {
+    }
+
     public static void generateOutput(int targetPointTotal, int staticPointTotal, Mode mode, Map<String, Integer> resultMap) {
         if (resultMap != null && !resultMap.isEmpty()) {
             if (Objects.requireNonNull(mode).equals(Mode.CHURCH)) {
                 GenerateOutput.iterateOverPermutationsChurch(resultMap, staticPointTotal, targetPointTotal);
             } else if (Objects.requireNonNull(mode).equals(Mode.WATCHTOWER)) {
                 GenerateOutput.iterateOverPermutationsWatchTower(resultMap, staticPointTotal, targetPointTotal);
+            } else {
+                System.out.println("No mode set");
             }
+        } else {
+            System.out.println("Result map empty");
         }
     }
 

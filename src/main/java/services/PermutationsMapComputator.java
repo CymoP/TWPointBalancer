@@ -9,15 +9,16 @@ import java.util.Map;
 
 public class PermutationsMapComputator {
 
+    private static Map<String, Integer> permutationsMap;
+
     /**
      * Recursive method to compute the permutations map for the given user input.
      *
      * @param oldMap                    Previous Permutations Map
      * @param flexibleBuildingsList     List of flexible buildings as per user input
      * @param flexibleBuildingListIndex Index of the current building to be parsed
-     * @return Permutations map
      */
-    public static Map<String, Integer> computeResult(Map<String, Integer> oldMap, List<String> flexibleBuildingsList, int flexibleBuildingListIndex) {
+    public static void computeResult(Map<String, Integer> oldMap, List<String> flexibleBuildingsList, int flexibleBuildingListIndex) {
         Map<String, Integer> newMap = new LinkedHashMap<>(oldMap);
         BiHashMap<String, Integer, Integer> pointTableMap = PointTableBuilder.buildPointTableMap();
 
@@ -41,8 +42,11 @@ public class PermutationsMapComputator {
             }
             computeResult(newMap, flexibleBuildingsList, ++flexibleBuildingListIndex);
         } else if (flexibleBuildingListIndex == (flexibleBuildingsList.size())) {
-            return newMap;
+            permutationsMap = newMap;
         }
-        return null;
+    }
+
+    public static Map<String, Integer> getPermutationsMap(){
+        return permutationsMap;
     }
 }
