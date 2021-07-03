@@ -22,8 +22,7 @@ public class Balancer {
         Mode mode = InputReader.getMode();
 
         //Compute permutations map
-        PermutationsMapComputator.computeResult(new LinkedHashMap<>(), flexibleBuildingsList, 0);
-        Map<String, Integer> resultMap = PermutationsMapComputator.getPermutationsMap();
+        Map<String, Integer> resultMap = PermutationsMapComputator.createPermutationsMap(new LinkedHashMap<>(), flexibleBuildingsList, 0);
 
         //Generate output
         GenerateOutput.generateOutput(targetPointTotal, staticPointTotal, mode, resultMap);
