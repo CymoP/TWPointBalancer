@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class GenerateOutput {
 
-    private static BiHashMap<String, Integer, Integer> pointTableMap = KeyBuildingPointTableBuilder.buildPointTableMap();
+    private static final BiHashMap<String, Integer, Integer> pointTableMap = KeyBuildingPointTableBuilder.buildPointTableMap();
 
     private GenerateOutput() {
     }

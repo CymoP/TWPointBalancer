@@ -19,7 +19,7 @@ public class PermutationsMapComputator {
      * @param flexibleBuildingListIndex Index of the current building to be parsed
      * @return the permutation map
      */
-    public static Map<String, Integer> createPermutationsMap(Map<String, Integer> oldMap, List<String> flexibleBuildingsList, int flexibleBuildingListIndex){
+    public static Map<String, Integer> createPermutationsMap(Map<String, Integer> oldMap, List<String> flexibleBuildingsList, int flexibleBuildingListIndex) {
         computeResult(oldMap, flexibleBuildingsList, flexibleBuildingListIndex);
         return permutationsMap;
     }
