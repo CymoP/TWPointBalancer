@@ -4,9 +4,7 @@ public class PointTableBuilder {
 
     private static BiHashMap<String, Integer, Integer> pointTableMap;
 
-    private PointTableBuilder() {
-
-    }
+    private PointTableBuilder() {}
 
     public static BiHashMap<String, Integer, Integer> buildPointTableMap() {
         pointTableMap = new BiHashMap<>();
